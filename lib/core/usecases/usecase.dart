@@ -15,4 +15,10 @@ class PaginatedParams extends Equatable {
 
   @override
   List<Object?> get props => [page,limit];
+  Map<String, dynamic> toJson() {
+    return {
+      "page": page,
+      "limit": limit,
+    };
+  }
 }

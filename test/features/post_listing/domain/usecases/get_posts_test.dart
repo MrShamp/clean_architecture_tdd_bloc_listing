@@ -1,18 +1,18 @@
 import 'package:clean_architecture_bloc_tdd_listing/core/usecases/usecase.dart';
 import 'package:clean_architecture_bloc_tdd_listing/features/post_listing/domain/entities/post.dart';
-import 'package:clean_architecture_bloc_tdd_listing/features/post_listing/domain/repositories/post_repository.dart';
+import 'package:clean_architecture_bloc_tdd_listing/features/post_listing/domain/repositories/posts_repository.dart';
 import 'package:clean_architecture_bloc_tdd_listing/features/post_listing/domain/usecases/get_post.dart';
 import 'package:dartz/dartz.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class MockPostRepository extends Mock implements PostRepository {}
+class MockPostsRepository extends Mock implements PostsRepository {}
 
 void main() {
   GetPosts? usecase;
-  MockPostRepository? mockPostRepository;
+  MockPostsRepository? mockPostRepository;
   setUp(() {
-    mockPostRepository = MockPostRepository();
+    mockPostRepository = MockPostsRepository();
     usecase = GetPosts(mockPostRepository!);
   });
   const tPostParmas = PaginatedParams(page: 10, limit:100);
@@ -34,13 +34,13 @@ void main() {
     'Should get posts from the repository',
     () async {
       // arrange
-      when(mockPostRepository?.getPost())
+      when(mockPostRepository?.getPosts(tPostParmas))
           .thenAnswer((_) async => const Right(tPosts));
       // act
       final result = await usecase!(tPostParmas);
       // assert
       expect(result, const Right(tPosts));
-      verify(mockPostRepository!.getPost());
+      verify(mockPostRepository!.getPosts(tPostParmas));
       verifyNoMoreInteractions(mockPostRepository);
     },
   );
