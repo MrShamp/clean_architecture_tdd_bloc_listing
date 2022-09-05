@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../domain/entities/post.dart';
 
 class PostModel extends Post {
@@ -25,12 +27,20 @@ class PostModel extends Post {
   }
   Map<String, dynamic> toJson() {
     return {
-      "id": id,
-      "author": author,
-      "url": url,
-      "download_url": downloadUrl,
-      "width": width,
-      "height": height,
+      'id': id,
+      'author': author,
+      'url': url,
+      'download_url': downloadUrl,
+      'width': width,
+      'height': height,
     };
   }
+
+  static String encode(List<PostModel> posts) => json.encode(
+        posts.map<Map<String, dynamic>>((post) => post.toJson()).toList(),
+      );
+
+  static List<PostModel> decode(String posts) => (json.decode(posts) as List)
+      .map<PostModel>((item) => PostModel.fromJson(item))
+      .toList();
 }

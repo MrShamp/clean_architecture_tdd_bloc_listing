@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/constants/constants.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../models/post_model.dart';
 
@@ -11,12 +12,10 @@ abstract class PostsLocalDataSource {
   ///
   /// Throws [CacheException] if no cached data is present.
   ///
-  
+
   Future<List<PostModel>> getLastSavedPosts();
   Future<void> cachePosts(List<PostModel> postsToCache);
 }
-
-const CACHED_POSTS = 'CACHED_POSTS';
 
 class PostsLocalDataSourceImplementation implements PostsLocalDataSource {
   final SharedPreferences sharedPreferences;
@@ -35,12 +34,11 @@ class PostsLocalDataSourceImplementation implements PostsLocalDataSource {
   }
 
   @override
-  Future<void> cachePosts(List<PostModel> postsToCache) async {
-    // return sharedPreferences.setString(
-    //   CACHED_POSTS,
-    //   json.encode(triviaToCache.toJson()),
-    // );
-    return Future.delayed(const Duration(seconds: 3));
+  Future<void> cachePosts(List<PostModel> postsToCache) {
+    final tempJsonList = postsToCache.map((e) => json.encode(e.toJson())).toList();
+    return sharedPreferences.setStringList(
+      CACHED_POSTS,
+      tempJsonList,
+    );
   }
-
 }

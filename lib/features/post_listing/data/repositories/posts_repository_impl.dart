@@ -1,4 +1,4 @@
-import 'package:clean_architecture_bloc_tdd_listing/core/errors/exceptions.dart';
+import '../../../../core/errors/exceptions.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failure.dart';
