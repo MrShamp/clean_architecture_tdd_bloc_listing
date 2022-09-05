@@ -24,8 +24,7 @@ void main() {
   });
 
   group('getLastSavedPosts', () {
-    final jsonStr = fixture('posts_cached.json');
-    final tPostModels = json.decode(jsonStr).map((x) => PostModel.fromJson(x));
+    final tPostModels = json.decode(fixture('posts_cached.json')).map((x) => PostModel.fromJson(x));
 
 
     test(
@@ -50,7 +49,7 @@ void main() {
     });
   });
 
-  group('cacheNumberTrivia', () {
+  group('cacheCachedPosts', () {
     const tPostModels = [
       PostModel(
         id: '0',

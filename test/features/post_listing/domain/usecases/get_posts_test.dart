@@ -15,7 +15,7 @@ void main() {
     mockPostRepository = MockPostsRepository();
     usecase = GetPosts(mockPostRepository!);
   });
-  const tPostParmas = PaginatedParams(page: 10, limit:100);
+  const tPostParmas = PaginatedParams(page: '10', limit:'100');
   const tPosts = [
     Post(
       id: '0',

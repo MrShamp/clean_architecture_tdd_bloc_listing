@@ -1,6 +1,6 @@
-import '../../../../core/errors/exceptions.dart';
 import 'package:dartz/dartz.dart';
 
+import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failure.dart';
 import '../../../../core/network/network_info.dart';
 import '../../../../core/usecases/usecase.dart';

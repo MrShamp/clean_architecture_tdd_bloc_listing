@@ -8,8 +8,8 @@ abstract class Usecase<Type, Params> {
 }
 
 class PaginatedParams extends Equatable {
-  final int page;
-  final int limit;
+  final String page;
+  final String limit;
 
   const PaginatedParams({required this.page, required this.limit});
 
