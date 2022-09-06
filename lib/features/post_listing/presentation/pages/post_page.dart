@@ -14,7 +14,7 @@ class PostsPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Posts Image Listing')),
       body: BlocProvider(
         create: (_) => sl<PostListingBloc>()..add(const GetPostsListing()),
-        child: const PostsList(),
+        child: const PostList(),
       ),
     );
   }

@@ -53,6 +53,7 @@ dev_dependencies:
   mockito:
   data_connection_checker: ^0.3.4
   bloc_test: ^9.0.0
+  integration_test:
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

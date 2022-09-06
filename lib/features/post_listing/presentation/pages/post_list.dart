@@ -4,14 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/bottom_loader.dart';
 import '../widgets/post_list_item.dart';
 
-class PostsList extends StatefulWidget {
-  const PostsList({super.key});
+class PostList extends StatefulWidget {
+  const PostList({super.key});
 
   @override
-  State<PostsList> createState() => _PostsListState();
+  State<PostList> createState() => _PostListState();
 }
 
-class _PostsListState extends State<PostsList> {
+class _PostListState extends State<PostList> {
   final _scrollController = ScrollController();
 
   @override
