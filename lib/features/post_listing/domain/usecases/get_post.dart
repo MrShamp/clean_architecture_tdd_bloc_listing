@@ -11,8 +11,8 @@ class GetPosts implements Usecase<List<Post>, PaginatedParams> {
   GetPosts(this.repository);
   
   @override
-  Future<Either<Failure, List<Post>>> call(PaginatedParams params) async{
-    return await repository.getPosts(params);
+  Future<Either<Failure, List<Post>>> call(PaginatedParams pageNumber) async{
+    return await repository.getPosts(pageNumber.page);
   }
   
 }

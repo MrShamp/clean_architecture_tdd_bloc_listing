@@ -1,3 +1,4 @@
+import 'package:clean_architecture_bloc_tdd_listing/core/constants/constants.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/exceptions.dart';
@@ -20,9 +21,10 @@ class PostRepositoryImplementation implements PostsRepository {
       required this.networkInfo});
 
   @override
-  Future<Either<Failure, List<Post>>> getPosts(PaginatedParams params) async {
+  Future<Either<Failure, List<Post>>> getPosts(String pageNumber) async {
     if (await networkInfo.isConnected) {
       try {
+        final params = PaginatedParams(page: pageNumber, limit: PAGE_LIMIT);
         final result = await remoteDataSource.getPosts(params);
         localDataSource.cachePosts(result);
         return Right(result);

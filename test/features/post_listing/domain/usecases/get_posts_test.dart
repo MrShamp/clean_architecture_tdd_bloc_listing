@@ -15,7 +15,7 @@ void main() {
     mockPostRepository = MockPostsRepository();
     usecase = GetPosts(mockPostRepository!);
   });
-  const tPostParmas = PaginatedParams(page: '10', limit:'100');
+  const tParams= PaginatedParams(page: '10', limit: '10');
   const tPosts = [
     Post(
       id: '0',
@@ -34,13 +34,13 @@ void main() {
     'Should get posts from the repository',
     () async {
       // arrange
-      when(mockPostRepository?.getPosts(tPostParmas))
+      when(mockPostRepository?.getPosts(tParams.page))
           .thenAnswer((_) async => const Right(tPosts));
       // act
-      final result = await usecase!(tPostParmas);
+      final result = await usecase!(tParams);
       // assert
       expect(result, const Right(tPosts));
-      verify(mockPostRepository!.getPosts(tPostParmas));
+      verify(mockPostRepository!.getPosts(tParams.page));
       verifyNoMoreInteractions(mockPostRepository);
     },
   );
