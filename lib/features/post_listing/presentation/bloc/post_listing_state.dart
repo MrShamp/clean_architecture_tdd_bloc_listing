@@ -2,10 +2,6 @@ part of 'post_listing_bloc.dart';
 
 enum PostListingStatus {initial,loading, success, failure}
 
-// abstract class PostListingState extends Equatable {
-//   const PostListingState();
-// }
-
 class PostListingState extends Equatable {
   const PostListingState({
     this.status = PostListingStatus.initial,
@@ -35,12 +31,3 @@ class PostListingState extends Equatable {
   @override
   List<Object> get props => [status, posts, hasReachedMax,errorMessage];
 }
-
-// class PostLoadFailure extends PostListingState {
-//   final String errorMessage;
-
-//   const PostLoadFailure(this.errorMessage);
-
-//   @override
-//   List<Object> get props => [errorMessage];
-// }

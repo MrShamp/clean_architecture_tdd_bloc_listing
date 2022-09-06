@@ -13,6 +13,5 @@ class GetPosts implements Usecase<List<Post>, PaginatedParams> {
   @override
   Future<Either<Failure, List<Post>>> call(PaginatedParams pageNumber) async{
     return await repository.getPosts(pageNumber.page);
-  }
-  
+  } 
 }

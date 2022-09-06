@@ -5,11 +5,9 @@ abstract class PostListingEvent extends Equatable {
 
 }
 class GetPostsListing extends PostListingEvent {
-  final String page;
-
-  const GetPostsListing(this.page);
+  const GetPostsListing();
   
   @override
-  List<Object?> get props => [page];
+  List<Object?> get props => [];
   
 }

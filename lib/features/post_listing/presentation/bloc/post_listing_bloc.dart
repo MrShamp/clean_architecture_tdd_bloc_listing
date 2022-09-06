@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
-import 'package:clean_architecture_bloc_tdd_listing/core/errors/failure.dart';
-import 'package:clean_architecture_bloc_tdd_listing/core/usecases/usecase.dart';
-import 'package:clean_architecture_bloc_tdd_listing/features/post_listing/domain/usecases/get_post.dart';
+import '../../../../core/errors/failure.dart';
+import '../../../../core/usecases/usecase.dart';
+import '../../domain/usecases/get_post.dart';
 import 'package:equatable/equatable.dart';
 import 'package:stream_transform/stream_transform.dart';
 
@@ -22,12 +22,17 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 
 class PostListingBloc extends Bloc<PostListingEvent, PostListingState> {
   final GetPosts getPosts;
-
+  int page = 1;
+  bool isFetching = false;
+  
   PostListingBloc({required this.getPosts}) : super(const PostListingState()) {
-    on<GetPostsListing>(
-      _onPostFetched,
-      transformer: throttleDroppable(throttleDuration),
-    );
+    on<GetPostsListing>((event, emit) async {
+      await _onPostFetched(event, emit);
+    });
+    // on<GetPostsListing>(
+    //   _onPostFetched,
+    //   transformer: throttleDroppable(throttleDuration),
+    // );
   }
 
   Future<void> _onPostFetched(
@@ -45,8 +50,9 @@ class PostListingBloc extends Bloc<PostListingEvent, PostListingState> {
           ),
         );
         final failureOrPosts = await getPosts(
-          PaginatedParams(page: event.page, limit: PAGE_LIMIT),
+          PaginatedParams(page: '$page', limit: PAGE_LIMIT),
         );
+        page++;
         return failureOrPosts.fold(
           (failure) {
             return emit(state.copyWith(
@@ -66,7 +72,7 @@ class PostListingBloc extends Bloc<PostListingEvent, PostListingState> {
         );
       }
       final failureOrPosts = await getPosts(
-        PaginatedParams(page: event.page, limit: PAGE_LIMIT),
+        PaginatedParams(page: '$page', limit: PAGE_LIMIT),
       );
       failureOrPosts.fold(
         (failure) {

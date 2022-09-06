@@ -48,7 +48,7 @@ void main() {
             .thenAnswer((_) async => const Right(tPosts));
 
         // act
-        bloc?.add(const GetPostsListing(tPageNumber));
+        bloc?.add(const GetPostsListing());
 
         await untilCalled(mockGetPosts!(tParams));
 
@@ -63,7 +63,7 @@ void main() {
         when(mockGetPosts!(tParams)).thenAnswer((_) async => const Right(tPosts));
         return bloc!;
       },
-      act: (bloc) => bloc.add(const GetPostsListing(tPageNumber)),
+      act: (bloc) => bloc.add(const GetPostsListing()),
       wait: const Duration(milliseconds: 100),
       expect: () => [
         const PostListingState(status: PostListingStatus.loading, posts: [], hasReachedMax: false),
@@ -77,7 +77,7 @@ void main() {
         when(mockGetPosts!(tParams)).thenAnswer((_) async => Left(ServerFailure()));
         return bloc!;
       },
-      act: (bloc) => bloc.add(const GetPostsListing(tPageNumber)),
+      act: (bloc) => bloc.add(const GetPostsListing()),
       wait: const Duration(milliseconds: 100),
       expect: () => [
         const PostListingState(status: PostListingStatus.loading, posts: [], hasReachedMax: false),
@@ -91,7 +91,7 @@ void main() {
         when(mockGetPosts!(tParams)).thenAnswer((_) async => Left(CacheFailure()));
         return bloc!;
       },
-      act: (bloc) => bloc.add(const GetPostsListing(tPageNumber)),
+      act: (bloc) => bloc.add(const GetPostsListing()),
       wait: const Duration(milliseconds: 100),
       expect: () => [
         const PostListingState(status: PostListingStatus.loading, posts: [], hasReachedMax: false),
