@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/post.dart';
@@ -9,14 +10,36 @@ class PostListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     return Material(
-      child: ListTile(
-        leading: Text('${post.id}', style: textTheme.caption),
-        title: Text(post.id),
-        isThreeLine: true,
-        subtitle: Text(post.author),
-        dense: true,
+      child: Container(
+        height: 230.0,
+        color: Colors.transparent,
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height / 4,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: CachedNetworkImage(
+                  imageUrl: post.downloadUrl,
+                  placeholder: (context, url) => const Center(
+                    child: SizedBox(
+                      height: 10,
+                      width: 10,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 1,
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10,),
+            Text('Author: ${post.author}'),
+          ],
+        ),
       ),
     );
   }

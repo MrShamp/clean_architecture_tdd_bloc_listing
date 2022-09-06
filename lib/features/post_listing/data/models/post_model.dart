@@ -20,7 +20,7 @@ class PostModel extends Post {
       id: json['id'],
       author: json['author'],
       url: json['url'],
-      downloadUrl: json['downloadUrl'],
+      downloadUrl: json['download_url'],
       width: json['width'],
       height: json['height'],
     );
